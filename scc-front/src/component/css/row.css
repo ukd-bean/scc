@@ -1,0 +1,23 @@
+.row {
+    padding: 5px 0;
+    display: flex;
+}
+
+.row:hover {
+    background: #eefbf2;
+}
+
+.row__section {
+    margin: 0 10px;
+    width: 100%;
+}
+
+.row__section .cost {
+    margin: 0 10px;
+}
+
+.row__section.option {
+    margin: 0 10px;
+    width: 50px;
+}
+

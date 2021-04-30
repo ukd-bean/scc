@@ -1,0 +1,25 @@
+.menu {
+    display: flex;
+    margin: 20px;
+}
+
+.menu__button {
+    background-color: #3ebad7;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 15px 32px;
+    margin: 0 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu__button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.menu__button:active {
+    transform: translateY(2px);
+}

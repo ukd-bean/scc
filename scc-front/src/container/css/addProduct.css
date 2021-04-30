@@ -1,0 +1,30 @@
+.add_product {
+    margin: 5px;
+    display: flex;
+}
+
+.add_product__input {
+    margin: 0 10px;
+    width: 100%;
+}
+
+.add_product_button {
+    background: #64ab5c;
+    border: none;
+    border-radius: 11px;
+    color: white;
+    padding: 1px 7px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.add_product_button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.add_product_button:active {
+    transform: translateY(1px);
+}

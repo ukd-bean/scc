@@ -1,0 +1,9 @@
+/scc-front/node_modules
+/scc-front/package-lock.json
+/target
+
+.idea
+
+database.mv.db
+database.trace.db
+sc-cash.iml

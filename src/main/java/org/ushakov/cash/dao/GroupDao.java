@@ -10,4 +10,6 @@ import java.util.List;
 public interface GroupDao extends CrudRepository<SccGroup, Long> {
     List<SccGroup> findByName(String name);
     List<SccGroup> findAll();
+    List<SccGroup> findByParentIdIsNull();
+    List<SccGroup> findByParentId(Long id);
 }

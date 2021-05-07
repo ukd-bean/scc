@@ -1,21 +1,9 @@
-export function getHello() {
-    return fetch("http://localhost:8080/group/hello", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': 'GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH',
-        }
-    })
-        .then(res => res.json())
-        .catch(err => console.log(err));
-}
-
 export function getAllGroups() {
     return fetch("http://localhost:8080/group/all", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': 'GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH',
+            'Access-Control-Allow-Origin': 'GET, POST',
         }
     })
         .then(res => res.json())
@@ -48,12 +36,12 @@ export function createPayment(name, cost, groupId) {
         .catch(err => console.log(err));
 }
 
-export function getAllPayments() {
-    return fetch("http://localhost:8080/payment/all", {
+export function getFilledPaymentGroups() {
+    return fetch("http://localhost:8080/main/", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': 'GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH',
+            'Access-Control-Allow-Origin': 'GET',
         }
     })
         .then(res => res.json())

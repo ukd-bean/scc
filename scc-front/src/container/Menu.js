@@ -1,11 +1,7 @@
 import "./css/menu.css"
-import {createGroup, createPayment, createProduct, getAllGroups, getAllPayments, getHello} from "../requests";
+import {createGroup, createPayment, getAllGroups, getFilledPaymentGroups} from "../requests";
 
 export function Menu() {
-
-    function hello() {
-        getHello().then(r => console.log(r.ping));
-    }
 
     function allGroups() {
         getAllGroups().then(r => console.log(r));
@@ -16,7 +12,7 @@ export function Menu() {
     }
 
     function allPayments() {
-        getAllPayments().then(r => console.log(r));
+        getFilledPaymentGroups().then(r => console.log(r));
     }
 
     function createNewPayment() {
@@ -25,9 +21,6 @@ export function Menu() {
 
     return (
         <div className="menu">
-            <button className="menu__button" onClick={() => hello()}>
-                hello
-            </button>
             <button className="menu__button" onClick={() => allGroups()}>
                 all groups
             </button>

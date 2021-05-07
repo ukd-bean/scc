@@ -3,6 +3,8 @@ package org.ushakov.cash.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
+import org.ushakov.cash.dto.req.GroupReqDto;
+import org.ushakov.cash.dto.resp.GroupRespDto;
 import org.ushakov.cash.entity.SccGroup;
 import org.ushakov.cash.service.GroupService;
 
@@ -22,23 +24,22 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @GetMapping("/hello")
-    @ResponseBody
-    public String hello() {
-        System.out.println("here");
-        return "{\"ping\":\"pong\"}";
-    }
-
     @GetMapping("/all")
     @ResponseBody
-    public List<SccGroup> getAllGroups() {
+    public List<GroupRespDto> getAllGroups() {
         return groupService.getAll();
     }
 
     @PostMapping("/")
     @ResponseBody
-    public SccGroup createGroup(@RequestBody String name) {
-        return groupService.createGroup(name);
+    public SccGroup createGroup(@RequestBody GroupReqDto dto) {
+        return groupService.createGroup(dto.getName());
+    }
+
+    @PostMapping("/child")
+    @ResponseBody
+    public SccGroup createChildGroup(@RequestBody GroupReqDto dto) {
+        return groupService.createChildGroup(dto.getName(), dto.getParentId());
     }
 
 }

@@ -1,18 +1,15 @@
-package org.ushakov.cash.dto;
+package org.ushakov.cash.dto.req;
 
 import org.springframework.stereotype.Component;
-import org.ushakov.cash.entity.SccGroup;
-
-import java.util.List;
 
 @Component
-public class GroupDto {
+public class GroupReqDto {
 
     private Long id;
 
     private String name;
 
-    private List<SccGroup> children;
+    private Long parentId;
 
     public Long getId() {
         return id;
@@ -30,11 +27,11 @@ public class GroupDto {
         this.name = name;
     }
 
-    public List<SccGroup> getChildren() {
-        return children;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setChildren(List<SccGroup> children) {
-        this.children = children;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }

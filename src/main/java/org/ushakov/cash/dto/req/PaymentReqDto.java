@@ -1,15 +1,18 @@
-package org.ushakov.cash.dto;
+package org.ushakov.cash.dto.req;
 
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Component
-public class PaymentDto {
+public class PaymentReqDto {
 
     private Long id;
 
-    private String name;
+    private LocalDateTime dateTime;
+
+    private String comment;
 
     private BigDecimal cost;
 
@@ -23,12 +26,20 @@ public class PaymentDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public BigDecimal getCost() {

@@ -1,23 +1,47 @@
 .row {
     padding: 5px 0;
+    text-align: left;
     display: flex;
 }
 
 .row:hover {
     background: #eefbf2;
+    cursor: pointer;
 }
 
 .row__section {
     margin: 0 10px;
-    width: 100%;
+    display: inline-block;
 }
 
-.row__section .cost {
+.row__section-cost {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.row__section.short {
+    min-width: 150px;
+}
+
+.context-menu {
+    position: absolute;
+    z-index: 10;
+    background: white;
+    border: 1px solid #bababa;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.menu-row {
+    padding: 5px;
+}
+
+.menu-row:hover {
+    background: #bababa;
+}
+
+.row__expand-zone {
     margin: 0 10px;
 }
-
-.row__section.option {
-    margin: 0 10px;
-    width: 50px;
-}
-

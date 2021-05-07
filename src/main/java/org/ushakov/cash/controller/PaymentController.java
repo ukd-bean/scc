@@ -3,11 +3,10 @@ package org.ushakov.cash.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
-import org.ushakov.cash.dto.PaymentDto;
+import org.ushakov.cash.dto.req.PaymentReqDto;
 import org.ushakov.cash.entity.SccPayment;
 import org.ushakov.cash.service.PaymentService;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -29,9 +28,15 @@ public class PaymentController {
         return paymentService.getAll();
     }
 
+    @GetMapping("/group")
+    @ResponseBody
+    public List<SccPayment> getByGroup(@RequestBody PaymentReqDto dto) {
+        return paymentService.getByGroup(dto.getGroupId());
+    }
+
     @PostMapping("/")
     @ResponseBody
-    public SccPayment create(@RequestBody PaymentDto dto) {
-        return paymentService.createPayment(dto.getName(), dto.getCost(), dto.getGroupId());
+    public SccPayment create(@RequestBody PaymentReqDto dto) {
+        return paymentService.createPayment(dto.getComment(), dto.getDateTime(), dto.getCost(), dto.getGroupId());
     }
 }

@@ -13,7 +13,7 @@ export function GroupRow({group}) {
     }, [])
 
     function expand(e) {
-        if(e.target.getAttribute("data-key") == group.id || e.target.parentNode.getAttribute("data-key") == group.id) {
+        if(e.target.getAttribute("data-key") == group.id || e.target.parentNode.getAttribute("data-key") == group.id || e.target.parentNode.parentNode.getAttribute("data-key") == group.id) {
             e.preventDefault();
             setExpanded(!expanded);
         }
@@ -24,9 +24,19 @@ export function GroupRow({group}) {
             <div key={group.id} data-key={group.id} className="row"
                  onClick={(e) => expand(e)}
             >
-                &#128193;
-                <div className="row__section short">{group.name}</div>
-                <div className="row__section-cost">{commonSum}</div>
+                <div className="row_info">
+                    &#128193;
+                    <div className="row__section short">{group.name}</div>
+                    <div className="row__section-cost">{commonSum}</div>
+                </div>
+                <div className="row_actions">
+                    <div id="row_edit" className="row_action">
+                        &#128394;
+                    </div>
+                    <div id="row_delete" className="row_action">
+                        &#128465;
+                    </div>
+                </div>
             </div>
             <div className="row__expand-zone">
                 {expanded ? group.children.map(child => <GroupRow key={child.id} group={child}/>) : ""}

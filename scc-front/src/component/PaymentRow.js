@@ -12,11 +12,18 @@ export function PaymentRow({payment}) {
 
     return (
         <div className="row">
-            &nbsp;
-            &#128178;
-            <div className="row__section short">{dateTimeFormat(payment.dateTime)}</div>
-            <div className="row__section short">{payment.cost}</div>
-            <div className="row__section">{payment.comment ? payment.comment : ''}</div>
+            <div className="row_info">
+                &nbsp;
+                &#128178;
+                <div className="row__section short">{dateTimeFormat(payment.dateTime)}</div>
+                <div className="row__section short">{payment.cost}</div>
+                <div className="row__section">{payment.comment ? payment.comment : ''}</div>
+            </div>
+            <div className="row_actions">
+                <div className="row_edit">
+                &#128178;
+                </div>
+            </div>
         </div>
     );
 }

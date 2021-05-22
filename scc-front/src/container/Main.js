@@ -1,12 +1,14 @@
 import './css/main.css';
 import {PaymentsContainer} from "./PaymentsContainer";
+import {ContextMenu} from "../component/ContextMenu";
+
 
 export function Main() {
 
     return (
         <div className="main">
-            &#128405;
             <PaymentsContainer/>
+            <ContextMenu />
         </div>
     )
 }

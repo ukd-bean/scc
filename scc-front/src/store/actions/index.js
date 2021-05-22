@@ -1,1 +1,1 @@
-export * from './paymenmtsActions';
+export * from './commonActions';

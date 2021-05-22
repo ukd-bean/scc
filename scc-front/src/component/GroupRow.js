@@ -13,9 +13,11 @@ export function GroupRow({group}) {
     }, [])
 
     function expand(e) {
-        if(e.target.getAttribute("data-key") == group.id || e.target.parentNode.getAttribute("data-key") == group.id || e.target.parentNode.parentNode.getAttribute("data-key") == group.id) {
-            e.preventDefault();
-            setExpanded(!expanded);
+        if (e.target.getAttribute("data-key") == group.id
+            || e.target.parentNode.getAttribute("data-key") == group.id
+            || e.target.parentNode.parentNode.getAttribute("data-key") == group.id) {
+                e.preventDefault();
+                setExpanded(!expanded);
         }
     }
 

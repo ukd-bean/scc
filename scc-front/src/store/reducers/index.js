@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { paymentsReducer } from './paymentsReducer';
+import { store } from './commonStore';
 
 export const rootReducer = combineReducers({
-    paymentsReducer
+    store
 })

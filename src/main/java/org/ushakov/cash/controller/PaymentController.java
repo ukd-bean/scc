@@ -37,6 +37,6 @@ public class PaymentController {
     @PostMapping("/")
     @ResponseBody
     public SccPayment create(@RequestBody PaymentReqDto dto) {
-        return paymentService.createPayment(dto.getComment(), dto.getDateTime(), dto.getCost(), dto.getGroupId());
+        return paymentService.createPayment(dto.getComment(), dto.getDate(), dto.getCost(), dto.getGroupId());
     }
 }

@@ -10,9 +10,17 @@
     cursor: pointer;
 }
 
+.row_info {
+    /* margin: 0 5px; */
+}
+
 .row__section {
     margin: 0 10px;
     display: inline-block;
+}
+
+.row__section.short {
+    min-width: 150px;
 }
 
 .row__section-cost {
@@ -20,8 +28,16 @@
     display: inline-block;
 }
 
-.row__section.short {
-    min-width: 150px;
+.row_edit {
+    margin-left: 10px;
+}
+
+.row_edit.cost {
+    width: 50px;
+}
+
+.row_edit.comment {
+    width: 400px;
 }
 
 .context-menu {
@@ -50,8 +66,25 @@
 .row_action {
     display: inline-block;
     margin: 0 5px;
+    filter: grayscale(100%) contrast(130%) brightness(105%);
 }
 
 .row_action:hover {
     cursor: pointer;
+    filter: drop-shadow(3px 3px 1px grey) !important;
+}
+
+.row_action.small {
+    transform: scale(0.8);
+}
+
+#row_edit-apply {
+    color: green;
+    transform: scale(1.2);
+    filter: brightness(1.2);
+    width: 46px;
+}
+
+#row_new-pay {
+    filter: grayscale(100%) contrast(130%) brightness(160%);
 }

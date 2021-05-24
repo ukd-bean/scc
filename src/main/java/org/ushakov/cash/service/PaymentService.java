@@ -6,7 +6,7 @@ import org.ushakov.cash.dao.PaymentDao;
 import org.ushakov.cash.entity.SccPayment;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,8 +19,8 @@ public class PaymentService {
         this.paymentDao = paymentDao;
     }
 
-    public SccPayment createPayment(String comment, LocalDateTime dateTime, BigDecimal cost, Long groupId) {
-        SccPayment payment = new SccPayment(comment, dateTime, cost, groupId);
+    public SccPayment createPayment(String comment, LocalDate date, BigDecimal cost, Long groupId) {
+        SccPayment payment = new SccPayment(comment, date, cost, groupId);
         return paymentDao.save(payment);
     }
 

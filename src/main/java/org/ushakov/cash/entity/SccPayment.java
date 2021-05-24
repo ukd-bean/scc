@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class SccPayment {
@@ -24,7 +24,7 @@ public class SccPayment {
     private Long groupId;
 
     @Column(nullable = false)
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
     public SccPayment() {}
 
@@ -33,11 +33,11 @@ public class SccPayment {
         this.groupId = groupId;
     }
 
-    public SccPayment(String comment, LocalDateTime dateTime, BigDecimal cost, Long groupId) {
+    public SccPayment(String comment, LocalDate date, BigDecimal cost, Long groupId) {
         this.comment = comment;
         this.cost = cost;
         this.groupId = groupId;
-        this.dateTime = dateTime;
+        this.date = date;
     }
 
     public Long getId() {
@@ -72,11 +72,11 @@ public class SccPayment {
         this.groupId = groupId;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

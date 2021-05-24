@@ -3,14 +3,14 @@ package org.ushakov.cash.dto.req;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Component
 public class PaymentReqDto {
 
     private Long id;
 
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
     private String comment;
 
@@ -26,12 +26,12 @@ public class PaymentReqDto {
         this.id = id;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getComment() {

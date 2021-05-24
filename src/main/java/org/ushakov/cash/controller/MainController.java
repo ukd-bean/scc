@@ -32,6 +32,14 @@ public class MainController {
         return groups;
     }
 
+    @GetMapping("/group")
+    @ResponseBody
+    public List<GroupRespDto> getGroupById(@RequestParam String id) {
+        List<GroupRespDto> groups = groupService.getAll();
+        fillGroupsWithPayments(groups);
+        return groups;
+    }
+
     private void fillGroupsWithPayments(List<GroupRespDto> groups) {
         groups.stream().forEach(group -> {
             group.setPayments(paymentService.getByGroup(group.getId()));

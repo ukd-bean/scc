@@ -6,7 +6,9 @@ import org.ushakov.cash.dao.GroupDao;
 import org.ushakov.cash.dto.resp.GroupRespDto;
 import org.ushakov.cash.entity.SccGroup;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +33,15 @@ public class GroupService {
 
     public List<GroupRespDto> getAll() {
         return convertEntityToDto(groupDao.findByParentIdIsNull());
+    }
+
+    public List<GroupRespDto> getById(Long id) {
+        Optional<SccGroup> group = groupDao.findById(id);
+        if (group.isPresent()) {
+            return convertEntityToDto(Collections.singletonList(group.get()));
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
 
     private List<GroupRespDto> convertEntityToDto(List<SccGroup> groups) {

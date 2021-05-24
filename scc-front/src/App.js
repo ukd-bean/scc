@@ -1,20 +1,20 @@
 import './App.css';
-import {connect} from 'react-redux';
-import {Header} from "./container/Header";
-import {Main} from "./container/Main";
+import { connect } from 'react-redux';
+import { Header } from "./container/Header";
+import { Main } from "./container/Main";
 
-function App({data}) {
+function App({ data }) {
 
-    return (
-        <div className="scc-frame">
-            <Header/>
-            <Main/>
-        </div>
-    );
+  return (
+    <div className="scc-frame">
+      <Header />
+      <Main />
+    </div>
+  );
 }
 
 const mapStateToProps = state => ({
-    data: state
+  data: state
 })
 
 export default connect(mapStateToProps)(App);

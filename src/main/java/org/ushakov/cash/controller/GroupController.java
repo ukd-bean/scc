@@ -33,13 +33,12 @@ public class GroupController {
     @PostMapping("/")
     @ResponseBody
     public SccGroup createGroup(@RequestBody GroupReqDto dto) {
-        return groupService.createGroup(dto.getName());
+        Long parentId = dto.getParentId();
+        String name = dto.getName();
+        if (parentId != null) {
+            return groupService.createChildGroup(name, parentId);
+        } else {
+            return groupService.createGroup(name);
+        }
     }
-
-    @PostMapping("/child")
-    @ResponseBody
-    public SccGroup createChildGroup(@RequestBody GroupReqDto dto) {
-        return groupService.createChildGroup(dto.getName(), dto.getParentId());
-    }
-
 }

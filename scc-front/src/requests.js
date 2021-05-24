@@ -1,23 +1,11 @@
-export function getAllGroups() {
-    return fetch("http://localhost:8080/group/all", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': 'GET, POST',
-        }
-    })
-        .then(res => res.json())
-        .catch(err => console.log(err));
-}
-
-export function createGroup(name) {
+export function createGroup(name, parentId) {
     return fetch("http://localhost:8080/group/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
             'Access-Control-Allow-Origin': 'POST',
         },
-        body: JSON.stringify({name})
+        body: JSON.stringify({name, parentId})
     })
         .then(res => res.json())
         .catch(err => console.log(err));

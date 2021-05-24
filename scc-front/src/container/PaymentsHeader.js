@@ -1,14 +1,16 @@
 import "./css/productsHeader.css"
-import {PaymentRow} from "../component/PaymentRow";
-import {AddProduct} from "./AddProduct";
 
 export function PaymentsHeader({commonSum}) {
 
     return(
-        <div>{commonSum}</div>
-        // <div className="column_names">
-        //     <PaymentRow payment={{name: "Name", parent: "Group", cost: "Cost"}} noCheckbox={true}/>
-        //     <AddProduct/>
-        // </div>
+        <div className="root-group">
+            <div id="row_new-group" className="row_action new">
+                &#128193;
+            </div>
+            <div id="row_new-pay" className="row_action new">
+                &#128178;
+            </div>
+            <div className="row__section-cost">{commonSum}</div>
+        </div>
     )
 }

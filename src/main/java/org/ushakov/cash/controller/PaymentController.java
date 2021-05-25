@@ -22,21 +22,27 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @GetMapping("/all")
-    @ResponseBody
-    public List<SccPayment> getAllPayments() {
-        return paymentService.getAll();
-    }
-
-    @GetMapping("/group")
-    @ResponseBody
-    public List<SccPayment> getByGroup(@RequestBody PaymentReqDto dto) {
-        return paymentService.getByGroup(dto.getGroupId());
-    }
-
-    @PostMapping("/")
+    @PostMapping
     @ResponseBody
     public SccPayment create(@RequestBody PaymentReqDto dto) {
         return paymentService.createPayment(dto.getComment(), dto.getDate(), dto.getCost(), dto.getGroupId());
+    }
+
+    @PatchMapping
+    @ResponseBody
+    public void update(@RequestBody PaymentReqDto dto) {
+        paymentService.updatePayment(dto.getId(), dto.getComment(), dto.getDate(), dto.getCost());
+    }
+
+    @PatchMapping("/replace")
+    @ResponseBody
+    public void replace(@RequestBody PaymentReqDto dto) {
+        paymentService.replacePayment(dto.getId(), dto.getGroupId());
+    }
+
+    @DeleteMapping
+    @ResponseBody
+    public void update(@RequestParam Long id) {
+        paymentService.deletePayment(id);
     }
 }

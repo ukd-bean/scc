@@ -11,6 +11,10 @@ export function PaymentsContainer() {
 	const [commonSum, setCommonSum] = useState(0);
 
 	useEffect(() => {
+		refreshRoot();
+	}, [])
+
+	function refreshRoot() {
 		getFilledPaymentGroups().then(items => {
 			setGroups(items);
 			let groupsSum = 0;
@@ -19,13 +23,13 @@ export function PaymentsContainer() {
 			}
 			setCommonSum(groupsSum.toFixed(2));
 		});
-	}, [])
+	}
 
 	return (
 		<div className="container">
 			<PaymentsHeader commonSum={commonSum} />
-			
-			{groups ? groups.map((group, index) => <GroupRow key={group.id} group={group} />) : ''}
+
+			{groups ? groups.map((group, index) => <GroupRow key={group.id} group={group} refreshParent={() => refreshRoot()} />) : ''}
 		</div>
 	)
 }

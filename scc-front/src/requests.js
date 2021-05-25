@@ -1,37 +1,116 @@
-export function createGroup(name, parentId) {
-    return fetch("http://localhost:8080/group/", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': 'POST',
-        },
-        body: JSON.stringify({name, parentId})
-    })
-        .then(res => res.json())
-        .catch(err => console.log(err));
-}
-
-export function createPayment(name, cost, groupId) {
-    return fetch("http://localhost:8080/payment/", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': 'POST',
-        },
-        body: JSON.stringify({name, cost, groupId})
-    })
-        .then(res => res.json())
-        .catch(err => console.log(err));
-}
-
 export function getFilledPaymentGroups() {
-    return fetch("http://localhost:8080/main/", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': 'GET',
-        }
-    })
-        .then(res => res.json())
-        .catch(err => console.log(err));
+  return fetch("http://localhost:8080/main", {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'GET',
+    }
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function getFilledPaymentSingleGroup(id) {
+  return fetch("http://localhost:8080/main/group?id=" + id, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'GET',
+    }
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function createGroup(name, parentId) {
+  return fetch("http://localhost:8080/group", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'POST',
+    },
+    body: JSON.stringify({ name, parentId })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function updateGroupName(id, name) {
+  return fetch("http://localhost:8080/group", {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'PATCH',
+    },
+    body: JSON.stringify({ id, name })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function deleteGroup(id, parentId) {
+  return fetch("http://localhost:8080/main", {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'DELETE',
+    },
+    body: JSON.stringify({ id, parentId })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+
+export function createPayment(date, cost, comment, groupId) {
+  return fetch("http://localhost:8080/payment", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'POST',
+    },
+    body: JSON.stringify({ date, cost, comment, groupId })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function updatePayment(id, date, cost, comment ) {
+  return fetch("http://localhost:8080/payment", {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'PATCH',
+    },
+    body: JSON.stringify({ id, date, cost, comment })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+
+export function replacePayment(id, groupId ) {
+  return fetch("http://localhost:8080/payment/replace", {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'PATCH',
+    },
+    body: JSON.stringify({ id, groupId })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function deletePayment(id) {
+  return fetch("http://localhost:8080/payment?id=" + id, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'DELETE',
+    },
+    body: JSON.stringify({ id })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
 }

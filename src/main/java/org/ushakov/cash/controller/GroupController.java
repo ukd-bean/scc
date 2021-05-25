@@ -17,28 +17,34 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class GroupController {
 
-    private GroupService groupService;
+  private GroupService groupService;
 
-    @Autowired
-    public GroupController(GroupService groupService) {
-        this.groupService = groupService;
-    }
+  @Autowired
+  public GroupController(GroupService groupService) {
+    this.groupService = groupService;
+  }
 
-    @GetMapping("/all")
-    @ResponseBody
-    public List<GroupRespDto> getAllGroups() {
-        return groupService.getAll();
-    }
+  @GetMapping("/all")
+  @ResponseBody
+  public List<GroupRespDto> getAllGroups() {
+    return groupService.getAll();
+  }
 
-    @PostMapping("/")
-    @ResponseBody
-    public SccGroup createGroup(@RequestBody GroupReqDto dto) {
-        Long parentId = dto.getParentId();
-        String name = dto.getName();
-        if (parentId != null) {
-            return groupService.createChildGroup(name, parentId);
-        } else {
-            return groupService.createGroup(name);
-        }
+  @PostMapping
+  @ResponseBody
+  public SccGroup createGroup(@RequestBody GroupReqDto dto) {
+    Long parentId = dto.getParentId();
+    String name = dto.getName();
+    if (parentId != null) {
+      return groupService.createChildGroup(name, parentId);
+    } else {
+      return groupService.createGroup(name);
     }
+  }
+
+  @PatchMapping
+  @ResponseBody
+  public SccGroup updateGroupName(@RequestBody GroupReqDto dto) {
+    return groupService.updateGroupName(dto.getId(), dto.getName());
+  }
 }

@@ -6,7 +6,6 @@ import org.ushakov.cash.dao.GroupDao;
 import org.ushakov.cash.dto.resp.GroupRespDto;
 import org.ushakov.cash.entity.SccGroup;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,43 +13,66 @@ import java.util.stream.Collectors;
 @Service
 public class GroupService {
 
-    private GroupDao groupDao;
+  private GroupDao groupDao;
 
-    @Autowired
-    public GroupService(GroupDao groupDao) {
-        this.groupDao = groupDao;
-    }
+  @Autowired
+  public GroupService(GroupDao groupDao) {
+    this.groupDao = groupDao;
+  }
 
-    public SccGroup createGroup(String name) {
-        SccGroup group = new SccGroup(name);
-        return groupDao.save(group);
-    }
+  public List<GroupRespDto> getAll() {
+    return convertEntitiesToDtos(groupDao.findByParentIdIsNull());
+  }
 
-    public SccGroup createChildGroup(String name, Long parentId) {
-        SccGroup group = new SccGroup(name, parentId);
-        return groupDao.save(group);
-    }
+  public GroupRespDto getById(Long id) {
+    Optional<SccGroup> group = groupDao.findById(id);
+    return group.map(this::convertEntityToDto).orElse(null);
+  }
 
-    public List<GroupRespDto> getAll() {
-        return convertEntityToDto(groupDao.findByParentIdIsNull());
-    }
+  public List<SccGroup> getByParentId(Long parentId) {
+    return groupDao.findByParentId(parentId);
+  }
 
-    public List<GroupRespDto> getById(Long id) {
-        Optional<SccGroup> group = groupDao.findById(id);
-        if (group.isPresent()) {
-            return convertEntityToDto(Collections.singletonList(group.get()));
-        } else {
-            return Collections.EMPTY_LIST;
-        }
-    }
+  public SccGroup createGroup(String name) {
+    SccGroup group = new SccGroup(name);
+    return groupDao.save(group);
+  }
 
-    private List<GroupRespDto> convertEntityToDto(List<SccGroup> groups) {
-        return groups.stream()
-                .map(entity -> new GroupRespDto(
-                        entity.getId(),
-                        entity.getName(),
-                        convertEntityToDto(groupDao.findByParentId(entity.getId())),
-                        entity.getAdditional()))
-                .collect(Collectors.toList());
+  public SccGroup createChildGroup(String name, Long parentId) {
+    SccGroup group = new SccGroup(name, parentId);
+    return groupDao.save(group);
+  }
+
+  public SccGroup updateGroupName(Long id, String name) {
+    Optional<SccGroup> group = groupDao.findById(id);
+    if (group.isPresent()) {
+      SccGroup groupEntity = group.get();
+      groupEntity.setName(name);
+      return groupDao.save(groupEntity);
+    } else {
+      return null;
     }
+  }
+
+  public void changeChildrenParent(Long parentId, Long childId) {
+    List<SccGroup> children = getByParentId(childId);
+    children.stream().forEach(group -> group.setParentId(parentId));
+    groupDao.saveAll(children);
+  }
+
+  public void deleteGroupById(Long id) {
+    groupDao.deleteById(id);
+  }
+
+  private GroupRespDto convertEntityToDto(SccGroup group) {
+    return new GroupRespDto(
+        group.getId(),
+        group.getName(),
+        convertEntitiesToDtos(groupDao.findByParentId(group.getId())),
+        group.getAdditional());
+  }
+
+  private List<GroupRespDto> convertEntitiesToDtos(List<SccGroup> groups) {
+    return groups.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+  }
 }

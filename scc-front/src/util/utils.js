@@ -5,3 +5,8 @@ export function calcPaymentsSum(group) {
     }
     return sum;
 }
+
+export function dateTimeFormat(value) {
+    const date = new Date(value);
+    return date.toLocaleDateString("en-GB", { year: 'numeric', month: 'short', day: '2-digit' });
+}

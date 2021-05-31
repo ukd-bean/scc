@@ -57,4 +57,15 @@ public class PaymentReqDto {
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
+
+    @Override
+    public String toString() {
+        return "PaymentReqDto{" +
+            "id=" + id +
+            ", date=" + date +
+            ", comment='" + comment + '\'' +
+            ", cost=" + cost +
+            ", groupId=" + groupId +
+            '}';
+    }
 }

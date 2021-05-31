@@ -1,5 +1,6 @@
-export function getFilledPaymentGroups() {
-  return fetch("http://localhost:8080/main", {
+export function getFilledPaymentGroups(date) {
+  console.log(date)
+  return fetch("http://localhost:8080/main?date=" + date, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -10,8 +11,8 @@ export function getFilledPaymentGroups() {
     .catch(err => console.log(err));
 }
 
-export function getFilledPaymentSingleGroup(id) {
-  return fetch("http://localhost:8080/main/group?id=" + id, {
+export function getFilledPaymentSingleGroup(id, date) {
+  return fetch("http://localhost:8080/main/group?id=" + id + "&date=" + date, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

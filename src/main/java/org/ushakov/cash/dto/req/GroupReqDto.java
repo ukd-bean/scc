@@ -34,4 +34,13 @@ public class GroupReqDto {
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
+
+    @Override
+    public String toString() {
+        return "GroupReqDto{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", parentId=" + parentId +
+            '}';
+    }
 }

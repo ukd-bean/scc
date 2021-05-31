@@ -2,4 +2,13 @@
     color: white;
     padding: 5px 0;
     background: #588fe0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__item {
+    display: inline-block;
+    width: 46%;
+    text-align: end;
+    margin: 0 5px;
 }

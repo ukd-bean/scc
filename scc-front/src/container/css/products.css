@@ -5,3 +5,34 @@
     align-items: stretch;
     width: 90%;
 }
+
+.root-group {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.root-month-manage {
+    width: 85%;
+    display: flex;
+    justify-content: center;
+}
+
+.manage-month {
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+.manage-month:active {
+    filter: drop-shadow(2px 2px 1px grey) !important;
+    color: #657edb;
+}
+
+.manage-month:hover {
+    filter: drop-shadow(3px 3px 1px grey);
+}
+
+.manage-month_month {
+    margin: 0 10px;
+}

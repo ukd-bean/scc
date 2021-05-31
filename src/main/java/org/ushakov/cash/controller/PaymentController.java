@@ -30,8 +30,8 @@ public class PaymentController {
 
     @PatchMapping
     @ResponseBody
-    public void update(@RequestBody PaymentReqDto dto) {
-        paymentService.updatePayment(dto.getId(), dto.getComment(), dto.getDate(), dto.getCost());
+    public SccPayment update(@RequestBody PaymentReqDto dto) {
+        return paymentService.updatePayment(dto.getId(), dto.getComment(), dto.getDate(), dto.getCost());
     }
 
     @PatchMapping("/replace")
@@ -42,7 +42,7 @@ public class PaymentController {
 
     @DeleteMapping
     @ResponseBody
-    public void update(@RequestParam Long id) {
+    public void delete(@RequestParam Long id) {
         paymentService.deletePayment(id);
     }
 }

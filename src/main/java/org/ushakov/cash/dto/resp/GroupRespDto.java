@@ -72,4 +72,16 @@ public class GroupRespDto {
     public void setPayments(List<SccPayment> payments) {
         this.payments = payments;
     }
+
+    @Override
+    public String toString() {
+        return "GroupRespDto{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", parentId=" + parentId +
+            ", isAdditional=" + isAdditional +
+            ", payments=" + payments +
+            ", children=" + children +
+            '}';
+    }
 }

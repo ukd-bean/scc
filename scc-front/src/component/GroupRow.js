@@ -51,7 +51,7 @@ export function GroupRow({ group, parentId, refreshParent }) {
     if (group.isNew) {
       createGroup(name, parentId).then(() => refreshParent());
     } else {
-      updateGroupName(id, name).then((resp) => console.log(resp))
+      updateGroupName(id, name).then(() => refreshParent())
     }
     setIsEdit(!isEdit)
   }
@@ -85,20 +85,21 @@ export function GroupRow({ group, parentId, refreshParent }) {
       setExpanded(true);
     }
     const paymentsCopy = [...payments];
-    paymentsCopy.push({ isNew: true, id: 0 });
+    paymentsCopy.push({ isNew: true, id: 0, groupId: id });
     setPayments(paymentsCopy);
   }
 
   function refresh() {
-    getFilledPaymentSingleGroup(id).then((data) => {
-      setChildren(data.children)
-      setPayments(data.payments)
+    getFilledPaymentSingleGroup(id, Date.now()).then((data) => {
+      setChildren(data.children);
+      setPayments(data.payments);
+      setCommonSum(calcPaymentsSum(group).toFixed(2));
     });
 
   }
 
   return (
-    <div>
+    <>
       <div key={id} data-key={id} className="row"
         onClick={(e) => expand(e)}
       >
@@ -143,7 +144,7 @@ export function GroupRow({ group, parentId, refreshParent }) {
         {expanded ? children.map(child => <GroupRow key={child.id} group={child} parentId={group.id} refreshParent={() => refresh()} />) : ""}
         {expanded ? payments.map(payment => <PaymentRow key={payment.id} payment={payment} refreshGroup={() => refresh()} />) : ""}
       </div>
-    </div>
+    </>
   )
 
 }

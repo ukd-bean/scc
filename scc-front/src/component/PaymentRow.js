@@ -1,5 +1,7 @@
 import './css/row.css';
 import { useState, useEffect } from "react";
+import { createPayment, deletePayment, updatePayment } from "../requests";
+import { dateTimeFormat } from "../util/utils";
 
 export function PaymentRow({ payment, refreshGroup }) {
 
@@ -14,19 +16,16 @@ export function PaymentRow({ payment, refreshGroup }) {
   useEffect(() => {
     if (!payment.isNew) {
       setId(payment.id)
+      setGroupId(payment.groupId)
       setComment(payment.comment)
       setCost(payment.cost)
       setDate(payment.date)
     } else {
       setDate(new Date(Date.now()).toLocaleDateString('en-CA'))
+      setGroupId(payment.groupId)
       setIsEdit(true);
     }
   }, [])
-
-  function dateTimeFormat(value) {
-    const date = new Date(value);
-    return date.toLocaleDateString("en-GB", { year: 'numeric', month: 'short', day: '2-digit' });
-  }
 
   function onEdit(e) {
     e.stopPropagation();
@@ -35,8 +34,12 @@ export function PaymentRow({ payment, refreshGroup }) {
 
   function applyEdit(e) {
     e.stopPropagation();
+    if (payment.isNew) {
+      createPayment(date, cost, comment, groupId).then(() => refreshGroup());
+    } else {
+      updatePayment(id, date, cost, comment).then(() => refreshGroup())
+    }
     setIsEdit(!isEdit)
-    refreshGroup();
   }
 
   function onRemove(e) {
@@ -47,6 +50,8 @@ export function PaymentRow({ payment, refreshGroup }) {
       setCost(payment.cost)
       setDate(payment.date)
       setIsEdit(!isEdit)
+    } else if (window.confirm("Are you sure want to DELETE this payment:\n " + " " + cost + "р. '" + comment + "' " + dateTimeFormat(date))) {
+      deletePayment(id, groupId).then(() => refreshGroup());
     }
     e.stopPropagation();
   }
@@ -54,7 +59,7 @@ export function PaymentRow({ payment, refreshGroup }) {
   return (
     <div className="row">
       <div className="row_info">
-        &nbsp; &#128178;
+        &nbsp;&#128178;&nbsp;
         {isEdit ?
           <>
             <input className="row_edit" type="date" value={date} onChange={(e) => setDate(e.target.value)} />

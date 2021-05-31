@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class SccPayment {
@@ -25,6 +26,12 @@ public class SccPayment {
 
     @Column(nullable = false)
     private LocalDate date;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
+
+    private LocalDateTime replaceDate;
 
     public SccPayment() {}
 
@@ -78,5 +85,29 @@ public class SccPayment {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public LocalDateTime getReplaceDate() {
+        return replaceDate;
+    }
+
+    public void setReplaceDate(LocalDateTime replaceDate) {
+        this.replaceDate = replaceDate;
     }
 }

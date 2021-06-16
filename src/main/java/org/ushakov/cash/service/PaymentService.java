@@ -8,7 +8,6 @@ import org.ushakov.cash.entity.SccPayment;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +31,7 @@ public class PaymentService {
             monthDate.getYear(),
             monthDate.getMonth(),
             monthDate.getMonth().length(monthDate.isLeapYear()));
-        return paymentDao.findByGroupIdAndDateBetween(groupId, start, end);
+        return paymentDao.findByGroupIdAndDateBetweenOrderByIdDesc(groupId, start, end);
     }
 
     public SccPayment createPayment(String comment, LocalDate date, BigDecimal cost, Long groupId) {
@@ -43,6 +42,15 @@ public class PaymentService {
 
     public void changePaymentsGroupId(Long groupId, Long newGroupId) {
         List<SccPayment> payments = paymentDao.findByGroupId(groupId);
+        payments.stream().forEach(payment -> {
+            payment.setGroupId(newGroupId);
+            payment.setReplaceDate(LocalDateTime.now());
+        });
+        paymentDao.saveAll(payments);
+    }
+
+    public void replacePayments(List<Long> ids, Long newGroupId) {
+        List<SccPayment> payments = (List<SccPayment>) paymentDao.findAllById(ids);
         payments.stream().forEach(payment -> {
             payment.setGroupId(newGroupId);
             payment.setReplaceDate(LocalDateTime.now());

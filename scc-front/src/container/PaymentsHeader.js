@@ -1,6 +1,9 @@
 import "./css/productsHeader.css"
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import { globalEdit, finishReplaceGroup, resetSelecting, cutPayments } from "../store/actions";
 
-export function PaymentsHeader({ commonSum, date, changeMonth, newGroup }) {
+function PaymentsHeader({ commonSum, date, changeMonth, newGroup, actions, store }) {
 
   function prevMonth() {
     changeMonth(-1);
@@ -30,6 +33,34 @@ export function PaymentsHeader({ commonSum, date, changeMonth, newGroup }) {
         </div>
         <button className="manage-month" onClick={() => nextMonth()}>{'>'}</button>
       </div>
+      <div className="row_action new" onClick={() => actions.globalEdit()}>
+        🕹️
+      </div>
+      {store.replacingGroupId &&
+        <div className="row_action new" onClick={() => actions.finishReplaceGroup()}>
+          🔽
+        </div>
+      }
+      {store.selectedPayments.length > 0 && !store.arePaymentsCuted &&
+        <div className="row_action new" onClick={() => actions.cutPayments()}>
+          ▶️
+        </div>
+      }
+      {store.selectedPayments.length > 0 && store.arePaymentsCuted &&
+        <div className="row_action new" onClick={() => actions.resetSelecting()}>
+          🔽
+        </div>
+      }
     </div>
   )
 }
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ globalEdit, finishReplaceGroup, resetSelecting, cutPayments }, dispatch)
+});
+
+const mapStateToProps = ({store}) => {
+  return {store};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentsHeader);

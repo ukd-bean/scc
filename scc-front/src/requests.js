@@ -49,6 +49,19 @@ export function updateGroupName(id, name) {
     .catch(err => console.log(err));
 }
 
+export function replaceGroupTo(id, parentId) {
+  return fetch("http://localhost:8080/group", {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'PUT',
+    },
+    body: JSON.stringify({ id, parentId })
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
 export function deleteGroup(id, parentId) {
   return fetch("http://localhost:8080/main", {
     method: 'DELETE',
@@ -90,14 +103,14 @@ export function updatePayment(id, date, cost, comment ) {
 }
 
 
-export function replacePayment(id, groupId ) {
+export function replacePayments(ids, groupId ) {
   return fetch("http://localhost:8080/payment/replace", {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       'Access-Control-Allow-Origin': 'PATCH',
     },
-    body: JSON.stringify({ id, groupId })
+    body: JSON.stringify({ ids, groupId })
   })
     .then(res => res.json())
     .catch(err => console.log(err));

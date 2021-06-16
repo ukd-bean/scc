@@ -1,18 +1,19 @@
 .container {
-    margin: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     width: 90%;
+    max-width: 800px;
+    margin: 20px 0 100px 0;
 }
 
 .root-group {
     display: flex;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .root-month-manage {
-    width: 85%;
+    width: 75%;
     display: flex;
     justify-content: center;
 }

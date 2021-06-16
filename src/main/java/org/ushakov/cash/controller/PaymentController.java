@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 import org.ushakov.cash.dto.req.PaymentReqDto;
+import org.ushakov.cash.dto.req.ReplacePaymentsReqDto;
 import org.ushakov.cash.entity.SccPayment;
 import org.ushakov.cash.service.PaymentService;
 
@@ -36,8 +37,8 @@ public class PaymentController {
 
     @PatchMapping("/replace")
     @ResponseBody
-    public void replace(@RequestBody PaymentReqDto dto) {
-        paymentService.replacePayment(dto.getId(), dto.getGroupId());
+    public void replace(@RequestBody ReplacePaymentsReqDto dto) {
+        paymentService.replacePayments(dto.getIds(), dto.getGroupId());
     }
 
     @DeleteMapping

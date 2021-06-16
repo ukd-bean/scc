@@ -1,13 +1,30 @@
-export const someAction = (data) => {
-    return {
-        type: 'DO',
-        payload: { data }
-    }
-}
+export const replaceGroup = (id) => ({
+    type: 'REPLACE_GROUP',
+    payload: id
+})
 
-export const callContextMenu = ({ x, y }) => {
-    return {
-        type: 'SET_CONTEXT_MENU_COORDINATES',
-        payload: { x, y }
-    }
-}
+export const finishReplaceGroup = () => ({
+    type: 'FINISH_REPLACE_GROUP',
+})
+
+export const selectPayment = (id, isSelected) => ({
+    type: 'SELECT_PAYMENT',
+    payload: {id, isSelected}
+})
+
+export const cutPayments = () => ({
+    type: 'CUT_PAYMENTS'
+})
+
+export const resetSelecting = () => ({
+    type: 'RESET_SELECTING'
+})
+
+export const setAllPaymentsCollapsed = (isCollapsed) => ({
+    type: 'GLOBAL_COLLAPSE',
+    payload: isCollapsed
+})
+
+export const globalEdit = () => ({
+    type: 'GLOBAL_EDIT'
+})

@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { createPayment, deletePayment, updatePayment } from "../requests";
 import { dateTimeFormat } from "../util/utils";
 
-export function PaymentRow({ payment, refreshGroup }) {
+export function PaymentRow({ payment, refreshGroup, store, actions }) {
 
   const [isEdit, setIsEdit] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+  const [isCuted, setIsCuted] = useState(false);
 
   const [id, setId] = useState(null);
   const [groupId, setGroupId] = useState(null);
@@ -21,11 +23,20 @@ export function PaymentRow({ payment, refreshGroup }) {
       setCost(payment.cost)
       setDate(payment.date)
     } else {
-      setDate(new Date(Date.now()).toLocaleDateString('en-CA'))
+      setDate(window.scc.last_date)
       setGroupId(payment.groupId)
       setIsEdit(true);
     }
   }, [])
+
+  useEffect(() => {
+    if (store.arePaymentsCuted && isSelected) {
+      setIsSelected(false);
+      setIsCuted(true);
+    } else if (!store.arePaymentsCuted) {
+      setIsCuted(false)
+    }
+  }, [store.arePaymentsCuted]);
 
   function onEdit(e) {
     e.stopPropagation();
@@ -56,15 +67,32 @@ export function PaymentRow({ payment, refreshGroup }) {
     e.stopPropagation();
   }
 
+  function onKeyDown(e) {
+    if (e.key === 'Enter') {
+      applyEdit(e)
+    }
+  }
+
+  function changeDate(e) {
+    setDate(e.target.value)
+    window.scc.last_date = e.target.value;
+  }
+
+  function clickCheckbox({ target }) {
+    setIsSelected(target.checked)
+    actions.selectPayment(payment.id, target.checked)
+  }
+
   return (
-    <div className="row">
+    <div className="row" style={isCuted ? { 'display': 'none' } : {}}>
       <div className="row_info">
         &nbsp;&#128178;&nbsp;
         {isEdit ?
           <>
-            <input className="row_edit" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            <input className="row_edit cost" value={cost} type="number" min="0.01" step="0.01" max="10000" onChange={(e) => setCost(e.target.value)} />
-            <input className="row_edit comment" value={comment} onChange={(e) => setComment(e.target.value)} />
+            <input className="row_edit" type="date" value={date} onChange={(e) => changeDate(e)} onKeyDown={(e) => onKeyDown(e)} />
+            <input className="row_edit cost" value={cost} autoFocus type="number" min="0.01" step="0.01" max="10000" 
+              onChange={(e) => setCost(e.target.value)} onKeyDown={(e) => onKeyDown(e)} />
+            <input className="row_edit comment" value={comment} onChange={(e) => setComment(e.target.value)} onKeyDown={(e) => onKeyDown(e)} />
           </>
           :
           <>
@@ -76,24 +104,19 @@ export function PaymentRow({ payment, refreshGroup }) {
       </div>
       <div className="row_actions">
         {isEdit ?
-          <>
-            <div id="row_edit-apply" className="row_action new" onClick={(e) => applyEdit(e)}>
-              &#10004;
-            </div>
-            <div id="row_delete" className="row_action small" onClick={(e) => onRemove(e)}>
-              &#10060;
-            </div>
-          </>
+          <div id="row_edit-apply" className="row_action new" onClick={(e) => applyEdit(e)}>
+            &#10004;
+          </div>
           :
-          <>
-            <div id="row_edit" className="row_action small" onClick={(e) => onEdit(e)}>
-              &#128295;
+          <div id="row_edit" className="row_action small" onClick={(e) => onEdit(e)} style={store.isGlobalEdit ? {} : { 'visibility': 'hidden' }}>
+            &#128295;
           </div>
-          <div id="row_delete" className="row_action small" onClick={(e) => onRemove(e)}>
-              &#10060;
-          </div>
-          </>
         }
+        <div id="row_delete" className="row_action small" onClick={(e) => onRemove(e)} style={store.isGlobalEdit || isEdit ? {} : { 'visibility': 'hidden' }}>
+          &#10060;
+        </div>
+        <input type="checkbox" className="row_action-checkbox" checked={isSelected} onChange={(e) => clickCheckbox(e)} 
+          style={store.isGlobalEdit && !store.arePaymentsCuted ? {} : { 'visibility': 'hidden' }}/>
       </div>
     </div>
   );

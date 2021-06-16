@@ -1,9 +1,9 @@
 import './App.css';
 import { connect } from 'react-redux';
 import { Header } from "./container/Header";
-import { Main } from "./container/Main";
+import Main from "./container/Main";
 
-function App({ data }) {
+function App() {
 
   return (
     <div className="scc-frame">

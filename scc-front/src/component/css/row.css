@@ -38,7 +38,7 @@
 }
 
 .row_edit.comment {
-    width: 400px;
+    width: 380px;
 }
 
 .context-menu {
@@ -77,6 +77,10 @@
 
 .row_action.small {
     transform: scale(0.8);
+}
+
+.row_action-checkbox {
+    margin: 0 9px;
 }
 
 #row_edit-apply {

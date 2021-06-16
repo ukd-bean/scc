@@ -47,4 +47,10 @@ public class GroupController {
   public SccGroup updateGroupName(@RequestBody GroupReqDto dto) {
     return groupService.updateGroupName(dto.getId(), dto.getName());
   }
+
+  @PutMapping
+  @ResponseBody
+  public void changeGroupParent(@RequestBody GroupReqDto dto) {
+    groupService.changeParent(dto.getId(), dto.getParentId());
+  }
 }

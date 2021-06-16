@@ -1,4 +1,16 @@
 .main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.collapse_all {
+    height: initial;
+    width: 80px;
+    margin-right: 20px;
+    background-color: antiquewhite;
+}
+
+.collapse_all:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }

@@ -1,15 +1,34 @@
 const initialState = {
-    contextMenu: {
-        isShown: false,
-        x: null,
-        y: null
-    }
+    isGlobalCollapse: true,
+    isGlobalEdit: false,
+    replacingGroupId: null,
+    selectedPayments: [],
+    arePaymentsCuted: false
 };
 
 export const store = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_CONTEXT_MENU_COORDINATES':
-            return {...state, contextMenu: { x: action.payload.x, y: action.payload.y, isShown: true }};
+        case 'GLOBAL_COLLAPSE':
+            return { ...state, isGlobalCollapse: action.payload };
+        case 'GLOBAL_EDIT':
+            return { ...state, isGlobalEdit: !state.isGlobalEdit };
+        case 'REPLACE_GROUP':
+            return { ...state, replacingGroupId: action.payload };
+        case 'FINISH_REPLACE_GROUP':
+            return { ...state, replacingGroupId: null };
+        case 'SELECT_PAYMENT':
+            if (action.payload.isSelected) {
+                return { ...state, selectedPayments: [action.payload.id, ...state.selectedPayments] };
+            } else {
+                const index = state.selectedPayments.findIndex(id => id === action.payload.id);
+                state.selectedPayments.splice(index, 1);
+                
+                return { ...state, selectedPayments: [...state.selectedPayments] };
+            }
+        case 'CUT_PAYMENTS':
+            return { ...state, arePaymentsCuted: true };
+        case 'RESET_SELECTING':
+            return { ...state, arePaymentsCuted: false, selectedPayments: [] };
         default:
             return state;
     }

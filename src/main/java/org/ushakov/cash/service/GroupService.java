@@ -60,6 +60,15 @@ public class GroupService {
     groupDao.saveAll(children);
   }
 
+  public void changeParent(Long id, Long parentId) {
+    Optional<SccGroup> group = groupDao.findById(id);
+    if (group.isPresent()) {
+      SccGroup entity = group.get();
+      entity.setParentId(parentId);
+      groupDao.save(entity);
+    }
+  }
+
   public void deleteGroupById(Long id) {
     groupDao.deleteById(id);
   }

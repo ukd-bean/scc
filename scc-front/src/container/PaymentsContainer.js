@@ -27,6 +27,7 @@ function PaymentsContainer({ store, actions }) {
         groupsSum += items.reduce((common, group) => { return common + calcPaymentsSum(group) }, 0);
       }
       setCommonSum(groupsSum.toFixed(2));
+      window.scc.commonSum = groupsSum.toFixed(2);
     });
   }
 
@@ -73,8 +74,9 @@ function PaymentsContainer({ store, actions }) {
         <GroupRow
           key={group.id}
           group={group}
-          parentId='root'
+          parentId={null}
           refreshRoot={() => refreshRoot()}
+          rootCommonSum={commonSum}
           store={store}
           actions={actions}
         />

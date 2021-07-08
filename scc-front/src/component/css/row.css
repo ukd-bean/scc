@@ -3,6 +3,7 @@
     text-align: left;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .row:hover {
@@ -20,13 +21,22 @@
 }
 
 .row__section.short {
-    min-width: 150px;
+    min-width: 170px;
 }
 
 .row__section-cost {
     margin: 0 10px;
     display: inline-block;
     width: 37px;
+}
+
+.recents_wrapper {
+    width: 50%;
+    background: #ececec80;
+}
+
+.row__section-percents {
+  background-color: #ff000029;
 }
 
 .row_edit {
@@ -61,7 +71,7 @@
 }
 
 .row__expand-zone {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .row_action {

@@ -4,7 +4,7 @@ import { PaymentRow } from "./PaymentRow";
 import { calcPaymentsSum } from "../util/utils";
 import { createGroup, updateGroupName, deleteGroup, replaceGroupTo, replacePayments } from "../requests";
 
-function GroupRow({ group, parentId, refreshRoot, store, actions }) {
+function GroupRow({ group, parentId, refreshRoot, store, actions, rootCommonSum }) {
 
   const {isGlobalCollapse, isGlobalEdit, replacingGroupId, selectedPayments, arePaymentsCuted} = store;
 
@@ -16,6 +16,7 @@ function GroupRow({ group, parentId, refreshRoot, store, actions }) {
   const [children, setChildren] = useState("");
   const [payments, setPayments] = useState("");
   const [commonSum, setCommonSum] = useState("");
+  const [percents, setPercents] = useState("");
 
   useEffect(() => {
     if (!group.isNew) {
@@ -23,7 +24,9 @@ function GroupRow({ group, parentId, refreshRoot, store, actions }) {
       setName(group.name)
       setChildren(group.children)
       setPayments(group.payments)
-      setCommonSum(calcPaymentsSum(group).toFixed(2));
+      const paymentsSum = calcPaymentsSum(group).toFixed(2);
+      setCommonSum(paymentsSum);
+      setPercents(rootCommonSum > 0 ? (paymentsSum / rootCommonSum).toFixed(1) : 0)
     } else {
       setId(0)
       setName('');
@@ -135,6 +138,11 @@ function GroupRow({ group, parentId, refreshRoot, store, actions }) {
           }
           <div className="row__section-cost">{commonSum}</div>
         </div>
+        <div className="recents_wrapper">
+          <div className="row__section-percents"
+            style={{width: commonSum > 0 ? (commonSum / rootCommonSum * 100).toFixed(1) + '%' : 0}}
+          >{commonSum > 0 ? (commonSum / rootCommonSum * 100).toFixed(1) + '%' : 0}</div>
+        </div>
         <div className="row_actions">
           <div className="row_action new" style={isGlobalEdit || isEdit ? { 'visibility': 'hidden' } : {}} onClick={(e) => onNewGroup(e)}>
             &#128193;
@@ -171,6 +179,7 @@ function GroupRow({ group, parentId, refreshRoot, store, actions }) {
             key={child.id}
             group={child}
             parentId={group.id}
+            rootCommonSum={rootCommonSum}
             refreshRoot={() => refreshRoot()}
             store={store}
             actions={actions}

@@ -3,7 +3,8 @@ const initialState = {
     isGlobalEdit: false,
     replacingGroupId: null,
     selectedPayments: [],
-    arePaymentsCuted: false
+    arePaymentsCuted: false,
+    isGroupMode: true
 };
 
 export const store = (state = initialState, action) => {
@@ -29,6 +30,8 @@ export const store = (state = initialState, action) => {
             return { ...state, arePaymentsCuted: true };
         case 'RESET_SELECTING':
             return { ...state, arePaymentsCuted: false, selectedPayments: [] };
+        case 'SWITCH_MODE':
+            return { ...state, isGroupMode: !state.isGroupMode };
         default:
             return state;
     }

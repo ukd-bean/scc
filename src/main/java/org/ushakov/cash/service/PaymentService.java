@@ -21,6 +21,15 @@ public class PaymentService {
         this.paymentDao = paymentDao;
     }
 
+    public List<SccPayment> getByMonth(LocalDate monthDate) {
+        LocalDate start = LocalDate.of(monthDate.getYear(), monthDate.getMonth(), 1);
+        LocalDate end = LocalDate.of(
+            monthDate.getYear(),
+            monthDate.getMonth(),
+            monthDate.getMonth().length(monthDate.isLeapYear()));
+        return paymentDao.findByDateBetweenOrderByIdDesc(start, end);
+    }
+
     public List<SccPayment> getByGroupId(Long groupId) {
         return paymentDao.findByGroupId(groupId);
     }

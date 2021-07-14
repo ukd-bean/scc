@@ -8,6 +8,9 @@ import org.ushakov.cash.dto.req.ReplacePaymentsReqDto;
 import org.ushakov.cash.entity.SccPayment;
 import org.ushakov.cash.service.PaymentService;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,6 +24,13 @@ public class PaymentController {
     @Autowired
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
+    }
+
+    @GetMapping
+    @ResponseBody
+    public List<SccPayment> getAll(@RequestParam String date) {
+        LocalDate monthDate = convertStringDateToLocalDate(date);
+        return paymentService.getByMonth(monthDate);
     }
 
     @PostMapping
@@ -45,5 +55,13 @@ public class PaymentController {
     @ResponseBody
     public void delete(@RequestParam Long id) {
         paymentService.deletePayment(id);
+    }
+
+    public LocalDate convertStringDateToLocalDate(String dateMs) {
+        Date date = new Date();
+        date.setTime(Long.parseLong(dateMs));
+        return date.toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate();
     }
 }

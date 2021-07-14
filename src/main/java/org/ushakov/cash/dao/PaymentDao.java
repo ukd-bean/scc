@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface PaymentDao extends CrudRepository<SccPayment, Long> {
     List<SccPayment> findByGroupId(Long id);
+    List<SccPayment> findByDateBetweenOrderByIdDesc(LocalDate start, LocalDate end);
     List<SccPayment> findByGroupIdAndDateBetweenOrderByIdDesc(Long id, LocalDate start, LocalDate end);
 }

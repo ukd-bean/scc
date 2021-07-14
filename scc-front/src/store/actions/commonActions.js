@@ -28,3 +28,7 @@ export const setAllPaymentsCollapsed = (isCollapsed) => ({
 export const globalEdit = () => ({
     type: 'GLOBAL_EDIT'
 })
+
+export const switchMode = () => ({
+    type: 'SWITCH_MODE'
+})

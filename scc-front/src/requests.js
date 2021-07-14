@@ -1,6 +1,18 @@
 export function getFilledPaymentGroups(date) {
-  console.log(date)
   return fetch("http://localhost:8080/main?date=" + date, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': 'GET',
+    }
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function getHistoryPaymentsByMonth(date) {
+  console.log(date)
+  return fetch("http://localhost:8080/payment/?date=" + date, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

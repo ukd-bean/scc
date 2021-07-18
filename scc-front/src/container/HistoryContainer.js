@@ -19,13 +19,15 @@ function HistoryContainer({ store, actions }) {
     return (
         <div>
             {payments ? payments.map(payment =>
-                <PaymentRow
-                    key={payment.id}
-                    payment={payment}
-                    refreshGroup={() => console.log('no refresh')}
-                    store={store}
-                    actions={actions}
-                />
+                payment.hiddenPayment == 'true' && store.isHiddenMode
+                    ? ''
+                    : <PaymentRow
+                        key={payment.id}
+                        payment={payment}
+                        refreshGroup={() => console.log('no refresh')}
+                        store={store}
+                        actions={actions}
+                      />
             ) : ""}
         </div>
     )

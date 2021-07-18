@@ -27,24 +27,26 @@ public class SccPayment {
     @Column(nullable = false)
     private LocalDate date;
 
+    @Column
     private LocalDateTime createDate;
 
+    @Column
     private LocalDateTime updateDate;
 
+    @Column
     private LocalDateTime replaceDate;
+
+    @Column
+    private String hiddenPayment;
 
     public SccPayment() {}
 
-    public SccPayment(BigDecimal cost, Long groupId) {
-        this.cost = cost;
-        this.groupId = groupId;
-    }
-
-    public SccPayment(String comment, LocalDate date, BigDecimal cost, Long groupId) {
+    public SccPayment(String comment, LocalDate date, BigDecimal cost, Long groupId, LocalDateTime createDate) {
         this.comment = comment;
         this.cost = cost;
         this.groupId = groupId;
         this.date = date;
+        this.createDate = createDate;
     }
 
     public Long getId() {
@@ -109,5 +111,13 @@ public class SccPayment {
 
     public void setReplaceDate(LocalDateTime replaceDate) {
         this.replaceDate = replaceDate;
+    }
+
+    public String getHiddenPayment() {
+        return hiddenPayment;
+    }
+
+    public void setHiddenPayment(String hiddenPayment) {
+        this.hiddenPayment = hiddenPayment;
     }
 }

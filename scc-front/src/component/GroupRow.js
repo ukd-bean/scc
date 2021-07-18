@@ -24,7 +24,7 @@ function GroupRow({ group, parentId, refreshRoot, store, actions, rootCommonSum 
       setName(group.name)
       setChildren(group.children)
       setPayments(group.payments)
-      const paymentsSum = calcPaymentsSum(group).toFixed(2);
+      const paymentsSum = calcPaymentsSum(group, store.isHiddenMode).toFixed(2);
       setCommonSum(paymentsSum);
       setPercents(rootCommonSum > 0 ? (paymentsSum / rootCommonSum).toFixed(1) : 0)
     } else {
@@ -184,14 +184,18 @@ function GroupRow({ group, parentId, refreshRoot, store, actions, rootCommonSum 
             store={store}
             actions={actions}
           />) : ""}
-        {expanded && !isGlobalCollapse ? payments.map(payment =>
-          <PaymentRow
-            key={payment.id}
-            payment={payment}
-            refreshGroup={() => refreshRoot()}
-            store={store}
-            actions={actions}
-          />) : ""}
+        {expanded && !isGlobalCollapse
+          ? payments.map(payment =>
+            payment.hiddenPayment == 'true' && store.isHiddenMode
+            ? ''
+            : <PaymentRow
+                key={payment.id}
+                payment={payment}
+                refreshGroup={() => refreshRoot()}
+                store={store}
+                actions={actions}
+              />)
+          : ""}
       </div>
     </>
   )

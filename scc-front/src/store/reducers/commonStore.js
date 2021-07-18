@@ -4,7 +4,8 @@ const initialState = {
     replacingGroupId: null,
     selectedPayments: [],
     arePaymentsCuted: false,
-    isGroupMode: true
+    isGroupMode: true,
+    isHiddenMode: true
 };
 
 export const store = (state = initialState, action) => {
@@ -32,6 +33,9 @@ export const store = (state = initialState, action) => {
             return { ...state, arePaymentsCuted: false, selectedPayments: [] };
         case 'SWITCH_MODE':
             return { ...state, isGroupMode: !state.isGroupMode };
+        case 'SWITCH_HIDDEN_MODE':
+            console.log('asdasd')
+            return { ...state, isHiddenMode: action.payload };
         default:
             return state;
     }

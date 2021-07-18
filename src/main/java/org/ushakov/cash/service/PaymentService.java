@@ -44,9 +44,14 @@ public class PaymentService {
     }
 
     public SccPayment createPayment(String comment, LocalDate date, BigDecimal cost, Long groupId) {
-        SccPayment payment = new SccPayment(comment, date, cost, groupId);
-        payment.setCreateDate(LocalDateTime.now());
-        return paymentDao.save(payment);
+        SccPayment payment = new SccPayment(comment, date, cost, groupId, LocalDateTime.now());
+        if (comment.contains("hidden")) {
+            payment.setHiddenPayment("true");
+        } else {
+            payment.setHiddenPayment("false");
+        }
+        SccPayment created = paymentDao.save(payment);
+        return created;
     }
 
     public void changePaymentsGroupId(Long groupId, Long newGroupId) {

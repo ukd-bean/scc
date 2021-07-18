@@ -32,3 +32,8 @@ export const globalEdit = () => ({
 export const switchMode = () => ({
     type: 'SWITCH_MODE'
 })
+
+export const setIsHiddenMode = (isHiddenMode) => ({
+    type: 'SWITCH_HIDDEN_MODE',
+    payload: isHiddenMode
+})

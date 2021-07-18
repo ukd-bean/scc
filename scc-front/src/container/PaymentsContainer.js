@@ -17,14 +17,18 @@ function PaymentsContainer({ store, actions }) {
   useEffect(() => {
     refreshRoot();
     window.scc = { last_date: new Date(Date.now()).toLocaleDateString('en-CA') };
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    refreshRoot()
+  }, [store.isHiddenMode])
 
   function refreshRoot(newDate) {
     getFilledPaymentGroups(newDate ? newDate : date).then(items => {
       let groupsSum = 0;
       setGroups(items);
       if (items) {
-        groupsSum += items.reduce((common, group) => { return common + calcPaymentsSum(group) }, 0);
+        groupsSum += items.reduce((common, group) => { return common + calcPaymentsSum(group, store.isHiddenMode) }, 0);
       }
       setCommonSum(groupsSum.toFixed(2));
       window.scc.commonSum = groupsSum.toFixed(2);

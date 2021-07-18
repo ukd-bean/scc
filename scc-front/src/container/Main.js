@@ -4,9 +4,19 @@ import { connect } from 'react-redux';
 import './css/main.css';
 import PaymentsContainer from "./PaymentsContainer";
 import HistoryContainer from "./HistoryContainer";
-import { setAllPaymentsCollapsed, switchMode } from "../store/actions";
+import { setAllPaymentsCollapsed, switchMode, setIsHiddenMode } from "../store/actions";
 
 const Main = ({ store, actions}) => {
+
+  function commandInput(value) {
+    if (value === 'showmethemoney') {
+      actions.setIsHiddenMode(false);
+    } else {
+      if (!store.isHiddenMode) {
+        actions.setIsHiddenMode(true);
+      }
+    }
+  }
 
   return (
     <div>
@@ -14,7 +24,8 @@ const Main = ({ store, actions}) => {
         {store.isGroupMode
           ? <button style={{ margin: "5px" }} onClick={() => actions.switchMode()} >History</button>
           : <button style={{ margin: "5px" }} onClick={() => actions.switchMode()} >Groups</button>
-        }        
+        }
+        <input onChange={e => commandInput(e.target.value)}/>
       </div>
       <div className="main">
         <div
@@ -31,7 +42,7 @@ const Main = ({ store, actions}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ setAllPaymentsCollapsed, switchMode }, dispatch)
+  actions: bindActionCreators({ setAllPaymentsCollapsed, switchMode, setIsHiddenMode }, dispatch)
 });
 
 const mapStateToProps = (store) => {

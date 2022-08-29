@@ -8,9 +8,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { setAllPaymentsCollapsed, replaceGroup, finishReplaceGroup, selectPayment, resetSelecting } from "../store/actions";
 
-function PaymentsContainer({ store, actions }) {
+function PaymentsContainer({ store, actions, date, changeMonth }) {
 
-  const [date, setDate] = useState(Date.now());
   const [commonSum, setCommonSum] = useState(0);
   const [groups, setGroups] = useState([]);
 
@@ -35,29 +34,6 @@ function PaymentsContainer({ store, actions }) {
     });
   }
 
-  function changeMonth(monthOffset) {
-    const dateT = new Date(date);
-    let newDate;
-    if (monthOffset > 0) {
-      if (dateT.getMonth() == 11) {
-        newDate = new Date(dateT.getFullYear() + 1, 0, 1);
-        setDate(newDate.getTime());
-      } else {
-        newDate = new Date(dateT.getFullYear(), dateT.getMonth() + 1, 1);
-        setDate(newDate.getTime());
-      }
-    } else {
-      if (dateT.getMonth() == 0) {
-        newDate = new Date(dateT.getFullYear() - 1, 0, 1);
-        setDate(newDate.getTime());
-      } else {
-        newDate = new Date(dateT.getFullYear(), dateT.getMonth() - 1, 1);
-        setDate(newDate.getTime());
-      }
-    }
-    refreshRoot(newDate.getTime());
-  }
-
   function onNewGroup(e) {
     e.stopPropagation();
     const groupsCopy = [...groups];
@@ -65,12 +41,17 @@ function PaymentsContainer({ store, actions }) {
     setGroups(groupsCopy);
   }
 
+  function changeMonthAndRefresh(offset) {
+    const newDate = changeMonth(offset);
+    refreshRoot(newDate.getTime());
+  }
+
   return (
     <div className="container">
       <PaymentsHeader
         commonSum={commonSum}
         date={date}
-        changeMonth={(offset) => changeMonth(offset)}
+        changeMonth={(offset) => changeMonthAndRefresh(offset)}
         newGroup={(e) => onNewGroup(e)}
       />
 

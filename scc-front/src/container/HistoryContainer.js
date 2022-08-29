@@ -6,12 +6,12 @@ import { setAllPaymentsCollapsed, replaceGroup, finishReplaceGroup, selectPaymen
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-function HistoryContainer({ store, actions }) {
+function HistoryContainer({ store, actions, date }) {
 
     const [payments, setPayments] = useState([]);
 
     useEffect(() => {
-        getHistoryPaymentsByMonth(Date.now()).then((resp) => {
+        getHistoryPaymentsByMonth(date).then((resp) => {
             setPayments(resp)
         })
     }, [])

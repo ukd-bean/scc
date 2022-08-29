@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from "react";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import './css/main.css';
@@ -7,6 +8,31 @@ import HistoryContainer from "./HistoryContainer";
 import { setAllPaymentsCollapsed, switchMode, setIsHiddenMode } from "../store/actions";
 
 const Main = ({ store, actions}) => {
+
+  const [date, setDate] = useState(Date.now());
+
+  function changeMonth(monthOffset) {
+    const dateT = new Date(date);
+    let newDate;
+    if (monthOffset > 0) {
+      if (dateT.getMonth() == 11) {
+        newDate = new Date(dateT.getFullYear() + 1, 0, 1);
+        setDate(newDate.getTime());
+      } else {
+        newDate = new Date(dateT.getFullYear(), dateT.getMonth() + 1, 1);
+        setDate(newDate.getTime());
+      }
+    } else {
+      if (dateT.getMonth() == 0) {
+        newDate = new Date(dateT.getFullYear() - 1, 0, 1);
+        setDate(newDate.getTime());
+      } else {
+        newDate = new Date(dateT.getFullYear(), dateT.getMonth() - 1, 1);
+        setDate(newDate.getTime());
+      }
+    }
+    return newDate;
+  }
 
   function commandInput(value) {
     if (value === 'showmethemoney') {
@@ -33,8 +59,8 @@ const Main = ({ store, actions}) => {
           onClick={() => actions.setAllPaymentsCollapsed(true)}
         ></div>
         {store.isGroupMode
-         ? <PaymentsContainer />
-         : <HistoryContainer />
+         ? <PaymentsContainer date={date} changeMonth={changeMonth} />
+         : <HistoryContainer date={date} />
         }
       </div>
     </div>
